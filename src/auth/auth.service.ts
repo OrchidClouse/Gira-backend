@@ -2,7 +2,7 @@ import { ForbiddenException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
 import { CreateUserDto } from '../users/dto/create-user.dto';
-import { UserEntity } from '../users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
@@ -36,7 +36,7 @@ export class AuthService {
     }
   }
 
-  async login(user: UserEntity) {
+  async login(user: User) {
     return {
       token: this.jwtService.sign({ id: user.id }),
     };

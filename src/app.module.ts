@@ -3,11 +3,17 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { UserEntity } from './users/entities/user.entity';
+import { User } from './users/entities/user.entity';
 
 import {ConfigModule} from '@nestjs/config'
 import {TypeOrmModule} from '@nestjs/typeorm'
 import { config } from 'dotenv';
+import { Project } from './users/entities/project.entity';
+import { Task } from './users/entities/task.entity';
+import { Comment } from './users/entities/comment.entity';
+import { ProjectModule } from './project/project.module';
+import { TaskModule } from './task/task.module';
+
 config();
 
 @Module({
@@ -20,12 +26,14 @@ config();
       username: 'postgres',
       password: String("sing4500"),
       database: 'gira-database',
-      entities: [UserEntity],
+      entities: [User, Comment, Project, Task],
       synchronize: true,
     }),
 
+    TaskModule,
     AuthModule,
-    UsersModule
+    UsersModule,
+    ProjectModule
   ],
 
   controllers: [AppController],

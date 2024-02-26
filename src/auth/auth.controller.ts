@@ -3,7 +3,7 @@ import { ApiBody } from '@nestjs/swagger';
 
 import { CreateUserDto } from '../users/dto/create-user.dto';
 import { AuthService } from './auth.service';
-import { UserEntity } from '../users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 import { LocalAuthGuard } from './guards/local.guard';
 
 @Controller('/auth')
@@ -14,7 +14,7 @@ export class AuthController {
   @Post('/login')
   @ApiBody({ type: CreateUserDto })
   async login(@Request() req) {
-    return this.authService.login(req.user as UserEntity);
+    return this.authService.login(req.user as User);
   }
 
   @Post('/register')

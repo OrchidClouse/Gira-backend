@@ -1,9 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Project } from './project.entity';
+import { Task } from './task.entity';
+import { Comment } from './comment.entity';
 
 @Entity('users')
-export class UserEntity {
+export class User {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @Column()
+  name: string;
 
   @Column()
   email: string;
@@ -11,7 +17,13 @@ export class UserEntity {
   @Column()
   password: string;
 
-  @Column()
-  fullname: string;
+  @OneToMany(() => Project, project => project.user)
+  projects: Project[];
 
+  // @OneToMany(() => Task, task => task.user)
+  // tasks: Task[];
+
+  @OneToMany(() => Comment, comment => comment.user)
+  comments: Comment[];
+  
 }
